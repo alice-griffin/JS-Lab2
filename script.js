@@ -1,18 +1,19 @@
 const randomDamage = () => {
-    return (Math.floor(Math.random() * 11));
+    let number = (Math.floor(Math.random() * 11));
+    return number;
 }
 
 const chooseOption = (opt1, opt2) => {
     const randNum = (Math.round(Math.random()));
-    if (randNum === 0) { 
+    if (randNum === 0) {
         return opt1;
     } else {
         return opt2;
     }
 }
 
-const attackPlayer = function(health) {
-    return (number = (health - randomDamage));
+const attackPlayer = function (health) {
+    return health - randomDamage();
 }
 
 const logHealth = (player, health) => {
@@ -25,31 +26,30 @@ const logDeath = (winner, loser) => {
 
 const isDead = (health) => {
     if (health <= 0) {
-        return true; 
+        return true;
     } else {
-        return false; 
+        return false;
     }
 }
 
 function fight(player1, player2, player1Health, player2Health) {
     while (true) {
-    const attacker = (chooseOption(player1, player2));
-    if (attacker === player1) {
-        player2health = attackPlayer(player2Health);
-        logHealth(player2, player2Health);
-        isDead(player2Health);
-        if (isDead(player2Health)) {
-            logDeath(player1, player2);
-            break; 
-        }        
-    } else {
-        player1Heath = attackPlayer(player1Health);
-        logHealth(player1, player1Health);
-        isDead(player1Health);
-    } if (isDead(player1Health)) {
-        logDeath(player2, player1);
-        break;
-    }
+        const attacker = chooseOption(player1, player2);
+        if (attacker === player1) {
+            player2Health = attackPlayer(player2Health);
+            logHealth(player2, player2Health);
+            if (isDead(player2Health)) {
+                logDeath(player1, player2);
+                break;
+            }
+        } else {
+            player1Heath = attackPlayer(player1Health);
+            logHealth(player1, player1Health);
+            if (isDead(player1Health)) {
+                logDeath(player2, player1);
+                break;
+            }
+        }
     }
 }
 
